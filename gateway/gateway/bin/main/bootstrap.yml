@@ -1,0 +1,20 @@
+spring:  
+  application:
+    name: gateway
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}-${server.port}-${random.long}
+      config:
+        enabled: true
+        format: yaml
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    consul:
+      host: consul-1

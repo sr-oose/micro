@@ -1,0 +1,18 @@
+spring:  
+  application:
+    name: feignclient
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      config:
+        enabled: true
+        format: yaml
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    consul:
+      host: consul-1
