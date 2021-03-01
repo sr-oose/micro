@@ -1,0 +1,41 @@
+server:
+  port: 8181
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: pastebin
+        uri: http://httpbin.org:80
+        predicates:
+          - Path=/get
+        filters:
+          - AddRequestHeader=Hello, World
+      - id: customers
+        uri: lb://rest-server
+        predicates:
+          - Path=/kunden/**
+        filters:
+          - RewritePath=/kunden/(?<remaining>.*), /customers/$\{remaining}
+          - name: CircuitBreaker
+            args:
+              name: backend
+              fallbackUri: forward:/fallback
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 2s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+    instances:
+      backend:
+        baseConfig: default

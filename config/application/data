@@ -1,0 +1,13 @@
+logging:
+  level:
+    org:
+      springframework.web: debug
+      hibernate: error
+    de.oose: debug
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,metric
+

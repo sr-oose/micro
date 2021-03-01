@@ -1,0 +1,12 @@
+global:
+    scrape_interval: 10s
+  
+scrape_configs:
+    - job_name: 'spring_micrometer'
+      metrics_path: '/actuator/prometheus'
+      scrape_interval: 5s
+      consul_sd_configs:
+      - server: '172.19.0.2:8500'         # Unser Consul-Server
+        services:
+        - 'gateway'                       # Namen der Services für das Monitoring (wie in Consul)
+        - 'rest-server'       

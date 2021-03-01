@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 	implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin'
 	implementation 'org.springframework.hateoas:spring-hateoas'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 	compileOnly    'org.projectlombok:lombok:1.18.18'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
