@@ -4,18 +4,24 @@ import java.time.LocalDate;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.oose.domain.Customer;
 
 @RestController
-public class TestRestController {
+public class ClientRestController {
 
 	private CustomerFeignClient customerFeignClient;
 	
-	public TestRestController(CustomerFeignClient customerClient) {
+	public ClientRestController(CustomerFeignClient customerClient) {
 		this.customerFeignClient = customerClient;
+	}
+	
+	@GetMapping("/get-customers")
+	public ResponseEntity<Iterable<Customer>> getAllCustomers(){
+		return customerFeignClient.getAllCustomers();
 	}
 	
 	@PostMapping("/test")

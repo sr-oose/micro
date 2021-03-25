@@ -10,16 +10,16 @@ import de.oose.domain.Customer;
 
 public class LocalFallback implements CustomerFeignClient{
 
-	private static final Customer bernd = new Customer("Bernd Stromberg", LocalDate.of(1970, 10, 10));
+	public static final Customer BERND = new Customer("Bernd Stromberg", LocalDate.of(1970, 10, 10));
 	
 	@Override
 	public ResponseEntity<Customer> getCustomer(Long id) {
-		return new ResponseEntity<>(bernd, HttpStatus.OK);
+		return new ResponseEntity<>(BERND, HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<Iterable<Customer>> getAllCustomers() {
-		return new ResponseEntity<>(Collections.singletonList(bernd), HttpStatus.OK);	
+		return new ResponseEntity<>(Collections.singletonList(BERND), HttpStatus.OK);	
     }
 	
 
