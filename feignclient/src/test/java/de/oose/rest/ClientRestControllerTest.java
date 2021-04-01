@@ -5,26 +5,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 
 import de.oose.domain.Customer;
 
 @SpringBootTest
-@TestPropertySource(properties = "server.port=8282")
+@ActiveProfiles("test")
 @Import(LoadBalancerConfig.class)
 @AutoConfigureWireMock(port = 8080)
 public class ClientRestControllerTest {
 	
 	@Autowired
 	private ClientRestController controller;
+	
+	@AfterEach
+	public void reset() {
+		WireMock.reset();
+	}
 	
 	@Test
 	public void fallbackIsWorking() {

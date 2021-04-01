@@ -24,6 +24,11 @@ public class ClientRestController {
 		return customerFeignClient.getAllCustomers();
 	}
 	
+	@GetMapping("/serviceid")
+	public ResponseEntity<String> serviceId(){
+		return customerFeignClient.instanceId();
+	}
+	
 	@PostMapping("/test")
 	public ResponseEntity<String> doSomeTesting(){
 		StringBuilder builder = new StringBuilder();

@@ -51,11 +51,4 @@ public class Customer {
 		this.birthday = birthday;
 	}
 
-//	public List<Long> getContracts() {
-//		return contracts;
-//	}
-//
-//	public void setContracts(List<Long> contracts) {
-//		this.contracts = contracts;
-//	}
 }

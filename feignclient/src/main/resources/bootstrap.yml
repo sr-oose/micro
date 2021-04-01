@@ -3,16 +3,19 @@ spring:
     name: feignclient
   cloud:
     consul:
-      host: localhost
+      host: consul-1
       port: 8500
+      discovery:
+        instance-id: ${spring.application.name}-${spring.cloud.client.hostname}-${server.port}
       config:
         enabled: true
         format: yaml
-
+        
 ---
 
 spring:
-  profiles: docker
+  profiles: local
   cloud:
     consul:
-      host: consul-1
+      host: localhost
+  

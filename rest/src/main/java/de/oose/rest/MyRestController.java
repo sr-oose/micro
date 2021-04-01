@@ -26,7 +26,9 @@ public class MyRestController {
 	private CustomerRepository customerRepository;
 	private ContractRepository contractRepository;
 	private DiscoveryClient client;
+	
 	private String grusswort;
+	private String instanceId;
 
 	
 	public MyRestController(DiscoveryClient client, CustomerRepository customerRepository, ContractRepository contractRepository) {
@@ -40,10 +42,20 @@ public class MyRestController {
 		this.grusswort = grusswort;
 	}
 	
+	@Value("${spring.cloud.consul.discovery.instance-id}")
+	public void setInstanceId(String instanceId) {
+		this.instanceId = instanceId;
+	}
+	
 	@GetMapping("/hello/{param}")
 	public ResponseEntity<String> hello(@PathVariable String param){
 		return new ResponseEntity<>(grusswort + " " + param, HttpStatus.OK);
 	}
+	
+	@GetMapping("/instanceid")
+	public ResponseEntity<String> instanceId(){
+		return new ResponseEntity<>(instanceId, HttpStatus.OK);
+	}	
 	
 	@GetMapping("/instances")
 	public ResponseEntity<List<String>> instances() {
@@ -93,6 +105,7 @@ public class MyRestController {
 	
 	@PostMapping(value = "/customers", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Long> createCustomer(@RequestBody Customer customer){
+		customer.setId(null);
 		var savedCustomer = customerRepository.save(customer);
 		return new ResponseEntity<Long>(savedCustomer.getId(), HttpStatus.OK);
 	}

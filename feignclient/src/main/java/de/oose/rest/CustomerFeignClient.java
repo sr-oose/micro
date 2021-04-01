@@ -28,4 +28,7 @@ public interface CustomerFeignClient {
 	
 	@DeleteMapping("/customers/{id}")
 	public ResponseEntity<Void> deleteCustomer(@PathVariable("id") Long id);
+	
+	@GetMapping("/instanceid")
+	public ResponseEntity<String> instanceId();
 }

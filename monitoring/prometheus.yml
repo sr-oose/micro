@@ -6,7 +6,20 @@ scrape_configs:
       metrics_path: '/actuator/prometheus'
       scrape_interval: 5s
       consul_sd_configs:
-      - server: '172.19.0.2:8500'         # Unser Consul-Server
+      - server: 'consul-1:8500'         # Unser Consul-Server
         services:
         - 'gateway'                       # Namen der Services für das Monitoring (wie in Consul)
         - 'rest-server'       
+      relabel_configs:
+      - source_labels: ['__meta_consul_service']
+        regex:         '(.*)'
+        target_label:  'job'
+        replacement:   '$1'
+      - source_labels: ['__meta_consul_node']
+        regex:         '(.*)'
+        target_label:  'instance'
+        replacement:   '$1'
+      - source_labels: ['__meta_consul_tags']
+        regex:         ',(production|canary),'
+        target_label:  'group'
+        replacement:   '$1'

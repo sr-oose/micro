@@ -1,5 +1,11 @@
 server:
   port: 8181
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health,info,metric,refresh,gateway
 
 spring:
   cloud:
@@ -13,7 +19,7 @@ spring:
         predicates:
           - Path=/get
         filters:
-          - AddRequestHeader=Hello, World
+          - AddRequestHeader=Hello, World2
       - id: customers
         uri: lb://rest-server
         predicates:

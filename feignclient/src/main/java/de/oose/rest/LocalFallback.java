@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import de.oose.domain.Customer;
 
-public class LocalFallback implements CustomerFeignClient{
+public class LocalFallback implements CustomerFeignClient {
 
 	public static final Customer BERND = new Customer("Bernd Stromberg", LocalDate.of(1970, 10, 10));
 	
@@ -36,6 +36,11 @@ public class LocalFallback implements CustomerFeignClient{
 	@Override
 	public ResponseEntity<Void> deleteCustomer(Long id) {
 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	@Override
+	public ResponseEntity<String> instanceId() {
+		return ResponseEntity.ok("none");
 	}
 
 }
