@@ -1,0 +1,9 @@
+spring:  
+  application:
+    name: feignclient
+  cloud:
+    consul:
+      enabled: false  
+  sleuth:
+    enabled: false
+grusswort: Grusswort-Test

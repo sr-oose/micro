@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 
 import de.oose.domain.Customer;
 
-public class MyRestControllerTest {
+public class RestControllerUnitTest {
 
 	private MyRestController controller;
 
